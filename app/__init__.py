@@ -12,14 +12,12 @@ def create_app(test_config=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/solar_system_development'
 
-    # Import models here
-    from app.model.planet import Planet      #make Planet
-
     db.init_app(app)
     migrate.init_app(app, db)
+    from app.model.planet import Planet     
 
     # Register Blueprints here
-    # from .routes import hello_world_bp
-    # app.register_blueprint(hello_world_bp)
+    from app.routes import planets_bp
+    app.register_blueprint(planets_bp)
     
     return app
