@@ -14,7 +14,7 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
-    from app.model.planet import Planet     
+    from app.models.planet import Planet     
 
     # Register Blueprints here
     from app.routes import planets_bp
