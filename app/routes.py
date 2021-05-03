@@ -52,3 +52,42 @@ def get_single_planet(planet_id):
         "message": f"Planet with id{planet.id} was not found",
         "success": False,
     }, 404
+
+@planets_bp.route("/<planet_id>", methods=["PUT"], strict_slashes=False)
+def update_single_planet(planet_id): 
+    planet = Planet.query.get(planet_id)
+    # print(planet)
+    if planet: 
+        update_data = request.get_json() 
+        planet.name = update_data["name"]
+        planet.description = update_data["description"]
+        planet.founder = update_data["founder"]
+    
+        db.session.commit() 
+        return {
+                "success": True,
+                "message": f"Planet {planet.name} successfully updated!"
+            }, 201
+    
+    return {
+        "message": f"Planet with id {planet_id} was not found",
+        "success": False,
+    }, 404
+
+@planets_bp.route("/<planet_id>", methods=["DELETE"], strict_slashes=False)
+def delete_single_planet(planet_id): 
+    planet = Planet.query.get(planet_id)
+
+    if planet: 
+        db.session.delete(planet)
+        db.session.commit() 
+        
+        return {
+            "success": True,
+            "message": f"Planet {planet_id} successfully deleted."
+        }, 201
+    
+    return {
+        "message": f"Planet with id {planet_id} was not found",
+        "success": False,
+    }, 404
