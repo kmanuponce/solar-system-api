@@ -49,7 +49,7 @@ def get_single_planet(planet_id):
         return planet.to_json(), 200
     
     return {
-        "message": f"Planet with id{planet.id} was not found",
+        "message": f"Planet with id {planet_id} was not found",
         "success": False,
     }, 404
 
@@ -84,7 +84,7 @@ def delete_single_planet(planet_id):
         
         return {
             "success": True,
-            "message": f"Planet {planet_id} successfully deleted."
+            "message": f"Planet {planet.id} successfully deleted."
         }, 201
     
     return {
